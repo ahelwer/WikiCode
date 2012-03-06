@@ -1,9 +1,10 @@
 # Algorithms on Strings, Trees, and Sequences
-# (Computer Science and Computational Biology)
+# Computer Science and Computational Biology
 # By Dan Gusfield
-# CHAPTER 1 CONCEPTS AND EXERCISES 
+# Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms
 # Andrew Helwer, March 2012
 
+# Returns the length of the prefix match of s1 and s2
 def MatchLength(s1, s2):
     count = 0
     for a, b in zip(s1, s2):
@@ -12,20 +13,22 @@ def MatchLength(s1, s2):
         count += 1
     return count
 
+# Performs the Z-algorithm on s
 def PreProcessString(s):
     z = [0 for x in s]
-    l = 0
-    r = 0
     z[0] = len(s)
     z[1] = MatchLength(s, s[1:])
-    if z[1] > 0:
-        l = 1
-        r = z[1]
-    for i in range(2, len(s)):
+    for i in range(2, min(2+z[1], len(s))): # Optimization from exercise 1-5
+        z[i] = z[1] - i + 1
+    l = 0
+    r = 0
+    for i in range(2+z[1], len(s)):
         if i <= r:
             b = z[i-l]
             if b < r-i+1 or r == len(s)-1:
                 z[i] = min(b, len(s)-i)
+            elif b == r-i+1: # Optimization from exercise 1-6
+                z[i] = b
             else:
                 q = MatchLength(s[b:], s[r+1:])
                 z[i] = b + q
@@ -168,9 +171,31 @@ print '-------------------------------------------------------------------------
 # Exercise 1-5 - special properties of the initial case of the Z algorithm
 
 """
-If Z_{2} = q > 0, then the first q + 1 characters of S must be the same character,
+If Z(2) = q > 0, then the first q + 1 characters of S must be the same character,
 as this is the only string that matches itself when shifted to the right by one place.
-Thus Z_{3} .. Z_{q+2} are q-1 .. 0 respectively.
+Thus Z(3) .. Z(q+2) are q-1 .. 0 respectively.
 """
 
+# Exercise 1-6 - evaluation of case 2b in the Z-algorithm with Z_{k'} > |B|
 
+"""
+Observe the following identities:
+    (1) |B| = h - k
+    (2) k' = k - l
+Given h, we know S(h+1) != S(h-l+1) by definition. Given Z(k') > |B|, assume for
+the purpose of proof by contradiction that Z(k) > |B| as well. Then we have:
+    S(k'+|B|+1) = S(k+|B|+1)
+    S(k'+(h-k)+1) = S(k+(h-k)+1) by (1)
+    S((k-l)+(h-k)+1) = S(k+(h-k)+1) by (2)
+    S(h-l+1) = S(h+1) 
+which is a contradiction, given the definition of h. Thus Z(k) <= |B|. Since
+Z(k) >= |B| when Z(k') > |B|, this means Z(k) = |B| when Z(k') > |B|.
+"""
+
+# Exercise 1-7 - consideration of increase in efficiency in light of 1-6
+
+"""
+At most this would increase speed by a constant factor, as the character after
+h would not be checked repeatedly despite knowing it will not match. It is still
+the case that every character in S will be checked at least once.
+"""
