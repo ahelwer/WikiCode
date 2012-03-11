@@ -1,0 +1,5 @@
+Import('env')
+
+source = env.Glob('*.tex')
+for s in source:
+    env.PDF(s)
