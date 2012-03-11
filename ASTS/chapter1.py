@@ -4,52 +4,12 @@
 # Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms
 # Andrew Helwer, March 2012
 
-from itertools import izip # Lazy zip function for efficiency
-
-# Returns the length of the prefix match of s1 and s2
-def MatchLength(s1, s2):
-    count = 0
-    for a, b in izip(s1, s2):
-        if a != b:
-            return count
-        count += 1
-    return count
-
-# Performs the Z-algorithm on s
-def PreProcessString(s):
-    z = [0 for x in s]
-    z[0] = len(s)
-    z[1] = MatchLength(s, s[1:])
-    for i in range(2, min(2+z[1], len(s))): # Optimization from exercise 1-5
-        z[i] = z[1]-i+1
-    l = 0
-    r = 0
-    for i in range(2+z[1], len(s)):
-        if i <= r:
-            k = i-l
-            b = z[k]
-            a = r-i+1
-            if b < a:
-                z[i] = b
-            elif b > a: # Optimization from exercise 1-6
-                z[i] = b
-                l = i
-                r = i+z[i]-1
-            else:
-                z[i] = b+MatchLength(s[a:], s[r+1:])
-                l = i
-                r = i+z[i]-1
-        else:
-            z[i] = MatchLength(s, s[i:])
-            if z[i] > 0:
-                l = i
-                r = i+z[i]-1
-    return z
+from fundamental_preprocessing import pre_process
 
 # Returns indices of exact matches of p in t
 def ExactMatchSearch(p, t):
     s = p + '$' + t
-    z = PreProcessString(s)
+    z = pre_process(s)
     matches = []
     for i, x in enumerate(z[len(p)+1:]):
         if x == len(p):
@@ -62,21 +22,21 @@ def IsCyclicRotation(p, t):
     if len(p) != len(t):
         return False
     s = p + '$' + t + t
-    z = PreProcessString(s)
+    z = pre_process(s)
     return any(x == len(p) for x in z)
 
 # [EXERCISE 1-2]
 # Returns whether p is a substring of a rotation of t
 def IsCyclicSubstring(p, t):
     s = p + '$' + t + t
-    z = PreProcessString(s)
+    z = pre_process(s)
     return any(x == len(p) for x in z)
 
 # [EXERCISE 1-3]
 # Returns the longest suffix of t that matches a prefix of p
 def LongestPrefixSuffixMatch(p, t):
     s = p + '$' + t
-    z = PreProcessString(s)
+    z = pre_process(s)
     suffixMatches = []
     for i, x in enumerate(z[len(p)+1:]):
         if x == len(t) - i:
@@ -106,10 +66,10 @@ def MaximalTandemSubarrays(p, t):
 # Preprocessing test
 s = 'aabxaacxaabxa'
 print 'Pre-processing \"%s\":' %s
-print PreProcessString(s)
+print pre_process(s)
 s = 'aaaaaaaaaaaaaa'
 print 'Pre-processing \"%s\":' %s
-print PreProcessString(s)
+print pre_process(s)
 
 # Matching test
 p = 'abxyabxz' 
