@@ -4,12 +4,12 @@
 # Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms
 # Andrew Helwer, March 2012
 
-from fundamental_preprocessing import pre_process
+from string_utils import fundamental_preprocess
 
 # Returns indices of exact matches of p in t
 def ExactMatchSearch(p, t):
     s = p + '$' + t
-    z = pre_process(s)
+    z = fundamental_preprocess(s)
     matches = []
     for i, x in enumerate(z[len(p)+1:]):
         if x == len(p):
@@ -22,21 +22,21 @@ def IsCyclicRotation(p, t):
     if len(p) != len(t):
         return False
     s = p + '$' + t + t
-    z = pre_process(s)
+    z = fundamental_preprocess(s)
     return any(x == len(p) for x in z)
 
 # [EXERCISE 1-2]
 # Returns whether p is a substring of a rotation of t
 def IsCyclicSubstring(p, t):
     s = p + '$' + t + t
-    z = pre_process(s)
+    z = fundamental_preprocess(s)
     return any(x == len(p) for x in z)
 
 # [EXERCISE 1-3]
 # Returns the longest suffix of t that matches a prefix of p
 def LongestPrefixSuffixMatch(p, t):
     s = p + '$' + t
-    z = pre_process(s)
+    z = fundamental_preprocess(s)
     suffixMatches = []
     for i, x in enumerate(z[len(p)+1:]):
         if x == len(t) - i:
@@ -66,10 +66,10 @@ def MaximalTandemSubarrays(p, t):
 # Preprocessing test
 s = 'aabxaacxaabxa'
 print 'Pre-processing \"%s\":' %s
-print pre_process(s)
+print fundamental_preprocess(s)
 s = 'aaaaaaaaaaaaaa'
 print 'Pre-processing \"%s\":' %s
-print pre_process(s)
+print fundamental_preprocess(s)
 
 # Matching test
 p = 'abxyabxz' 
