@@ -1,6 +1,4 @@
-from string_utils import fundamental_preprocess
-
-ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+from string_algo.string_utils import fundamental_preprocess, alphabet_index
 
 def build_good_suffix_table(s):
     l = [0 for c in s]
@@ -25,7 +23,7 @@ def build_match_table(s):
 def build_character_table(s):
     r = [[] for c in ALPHABET]
     for i, c in enumerate(s):
-        r[ALPHABET.index(c)].append(i)
+        r[alphabet_index(c)].append(i)
     return r
 
 """
@@ -35,8 +33,7 @@ amount to shift the string and skip comparisons. In practice it runs in O(m) (an
 sublinear) time, where m is the length of T.
 """
 def string_search(p, t):
-    occurrences = []
-
+    matches = []
     # Preprocessing
     L = build_good_suffix_table(p)
     l = build_match_table(p)
@@ -50,11 +47,10 @@ def string_search(p, t):
             i -= 1
             h -= 1
         if i == 0: # Match has been found
-            occurrences.append(k - (len(p) - 1))
+            matches.append(k - (len(p) - 1))
             k += len(p) - l[1]
         else: # No match, shift by max of bad character and good suffix rules
-            char_matches = [idx for idx in R[ALPHABET.index(t[h])] if idx < i]
+            char_matches = [idx for idx in R[alphabet_index(t[h])] if idx < i]
             char_shift = i - char_matches[-1] if char_matches != [] else 1
             suffix_shift = L[i] 
             k += max(char_shift, suffix_shift)
-

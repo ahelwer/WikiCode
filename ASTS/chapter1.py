@@ -4,7 +4,7 @@
 # Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms
 # Andrew Helwer, March 2012
 
-from string_utils import fundamental_preprocess
+from string_algo.string_utils import fundamental_preprocess
 
 # Returns indices of exact matches of p in t
 def ExactMatchSearch(p, t):

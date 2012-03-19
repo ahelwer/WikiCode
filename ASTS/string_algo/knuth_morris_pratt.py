@@ -1,4 +1,4 @@
-from string_utils import fundamental_preprocess
+from string_algo.string_utils import fundamental_preprocess
 
 """
 Returns sp, where the ith element of sp is the length of the longest substring ending
