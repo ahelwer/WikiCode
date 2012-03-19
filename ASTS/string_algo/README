@@ -1,0 +1,10 @@
+Implementations in Python of various string algorithms.
+
+string_utils.py
+    Various commonly-useful string-related methods.
+naive_algorithm.py
+    Implementation of the naive string search algorithm.
+boyer_moore.py
+    Implementation of basic Boyer-Moore string search and preprocessing methods.
+knuth_morris_pratt.py
+    Implementation of basic Knuth-Morris-Pratt string search and preprocessing methods.
