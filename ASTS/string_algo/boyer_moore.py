@@ -9,8 +9,8 @@ for the bad character rule in the Boyer-Moore string search algorithm, although 
 a much larger size than non-constant-time solutions.
 """
 def bad_character_table(S):
-    R = [[0] for a in range(26)]
-    alpha = [0 for a in range(26)]
+    R = [[-1] for a in range(26)]
+    alpha = [-1 for a in range(26)]
     for i, c in enumerate(S):
         alpha[alphabet_index(c)] = i
         for j, a in enumerate(alpha):
@@ -37,20 +37,19 @@ def good_suffix_table(S):
     return L
 
 """
-Generates K for S, an array used in a special case of the good suffix rule in the Boyer-Moore
-string search algorithm. K[i] is the length of the longest suffix of S[i:] that is also a
+Generates F for S, an array used in a special case of the good suffix rule in the Boyer-Moore
+string search algorithm. F[i] is the length of the longest suffix of S[i:] that is also a
 prefix of S. In the cases it is used, the shift magnitude of the pattern P relative to the
-text T is len(P) - K[i] for a mismatch occurring at i.
+text T is len(P) - F[i] for a mismatch occurring at i.
 """
 def full_shift_table(S):
-    K = [0 for c in S]
+    F = [0 for c in S]
     Z = fundamental_preprocess(S)
     longest = 0
     for i, zv in enumerate(reversed(Z)):
         longest = max(zv, longest) if zv == i+1 else longest
-        K[-i-1] = longest
-    K[0] = K[1]
-    return K
+        F[-i-1] = longest
+    return F
 
 """
 Implementation of the Boyer-Moore string search algorithm. This finds all occurrences of P
@@ -58,25 +57,31 @@ in T, and incorporates numerous ways of pre-processing the pattern to determine 
 amount to shift the string and skip comparisons. In practice it runs in O(m) (and even 
 sublinear) time, where m is the length of T.
 """
-def string_search(p, t):
+def string_search(P, T):
     matches = []
-    # Preprocessing
-    L = build_good_suffix_table(p)
-    l = build_match_table(p)
-    R = build_character_table(p)
 
-    k = len(p) - 1 # Represents shift position of p relative to t
-    while k < len(t):
-        i = len(p) - 1
-        h = k
-        while i > 0 and p[i] == t[h]: # Matches p and t from end of p
+    # Preprocessing
+    R = bad_character_table(P)
+    L = good_suffix_table(P)
+    F = full_shift_table(P)
+
+    k = len(P) - 1      # Represents alignment of end of P relative to T
+    while k < len(T):
+        i = len(P) - 1  # Character to compare in P
+        h = k           # Character to compare in T
+        while i > 0 and P[i] == T[h]:   # Matches starting from end of P
             i -= 1
             h -= 1
         if i == 0: # Match has been found
-            matches.append(k - (len(p) - 1))
-            k += len(p) - l[1]
-        else: # No match, shift by max of bad character and good suffix rules
-            char_matches = [idx for idx in R[alphabet_index(t[h])] if idx < i]
-            char_shift = i - char_matches[-1] if char_matches != [] else 1
-            suffix_shift = L[i] 
+            matches.append(k - len(P) + 1)
+            k += len(P) - F[1]  # Shift using full shift table
+        else:   # No match, shift by max of bad character and good suffix rules
+            next_char = R[alphabet_index(T[h])][i]
+            char_shift = i-next_char if next_char != -1 else i+1
+            if i+1 != len(P):
+                suffix_shift = len(P)-L[i+1] if L[i+1] != 0 else len(P)-F[i+1]
+            else:
+                suffix_shift = 1
             k += max(char_shift, suffix_shift)
+    return matches
+
