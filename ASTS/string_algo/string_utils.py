@@ -26,7 +26,7 @@ def fundamental_preprocess(S):
     z = [0 for x in S]
     z[0] = len(S)
     z[1] = match_length(S, 0, 1)
-    for i in range(2, 2+z[1]): # Optimization from exercise 1-5
+    for i in range(2, 1+z[1]): # Optimization from exercise 1-5
         z[i] = z[1]-i+1
     # Defines lower and upper limits of z-box
     l = 0
