@@ -39,7 +39,7 @@ def fundamental_preprocess(S):
             if b < a: # b ends within existing z-box
                 z[i] = b
             elif b > a: # Optimization from exercise 1-6
-                z[i] = b
+                z[i] = min(b, len(S)-i)
                 l = i
                 r = i+z[i]-1
             else: # b ends exactly at end of existing z-box
