@@ -1,5 +1,6 @@
-Algorithms on Strings, Trees, and Sequences - Computer Science and Computational Biology
-Dan Gusfield
+Algorithms on Strings, Trees, and Sequences
+    Computer Science and Computational Biology
+    Dan Gusfield
 
 Implementation of string algorithms are in the string_algo Python module.
 Python and TeX files in this directory are chapter exercises.

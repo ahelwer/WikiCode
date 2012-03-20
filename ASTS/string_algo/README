@@ -7,4 +7,4 @@ naive_algorithm.py
 boyer_moore.py
     Implementation of basic Boyer-Moore string search and preprocessing methods.
 knuth_morris_pratt.py
-    Implementation of basic Knuth-Morris-Pratt string search and preprocessing methods.
+    Implementation of basic KMP string search and preprocessing methods.

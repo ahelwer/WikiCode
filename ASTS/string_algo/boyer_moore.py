@@ -1,30 +1,56 @@
 from string_algo.string_utils import fundamental_preprocess, alphabet_index
 
-def build_good_suffix_table(s):
-    l = [0 for c in s]
-    s_reverse = s[::-1] # This reverses a string in Python. True story.
-    n = fundamental_preprocess(s_reverse)
-    n.reverse()
-    for j in range(0, len(s)-1):
-        i = len(s) - n[j]
-        if i != len(s):
-            l[i] = j + 1
-    return l
+"""
+Generates R for S, which is an array indexed by the position of some character c in the 
+English alphabet. At that index in R is an array of length |S|+1, specifying for each
+index i in S (plus the index after S) the next location of character c encountered when
+traversing S from right to left starting at i. This is used for a constant-time lookup
+for the bad character rule in the Boyer-Moore string search algorithm, although it has
+a much larger size than non-constant-time solutions.
+"""
+def bad_character_table(S):
+    R = [[0] for a in range(26)]
+    alpha = [0 for a in range(26)]
+    for i, c in enumerate(S):
+        alpha[alphabet_index(c)] = i
+        for j, a in enumerate(alpha):
+            R[j].append(a)
+    return R
 
-def build_match_table(s):
-    l = [0 for c in s]
-    z = fundamental_preprocess(s)
+"""
+Generates L for S, an array used in the implementation of the strong good suffix rule.
+L[i] = k, the largest position in S such that S[i:] (the suffix of S starting at i) matches
+a suffix of S[:k] (a substring in S ending at k). Used in Boyer-Moore, L gives an amount to
+shift P relative to T such that no instances of P in T are skipped and a suffix of P[:L[i]]
+matches the substring of T matched by a suffix of P in the previous match attempt.
+Specifically, if the mismatch took place at position i in P, the shift magnitude is given
+by the equation len(P) - L[i]. In the case that L[i] = 0, the full shift table is used.
+"""
+def good_suffix_table(S):
+    L = [0 for c in S]
+    N = fundamental_preprocess(S[::-1]) # S[::-1] reverses S
+    N.reverse()
+    for j in range(0, len(S)-1):
+        i = len(S) - N[j]
+        if i != len(S):
+            L[i] = j
+    return L
+
+"""
+Generates K for S, an array used in a special case of the good suffix rule in the Boyer-Moore
+string search algorithm. K[i] is the length of the longest suffix of S[i:] that is also a
+prefix of S. In the cases it is used, the shift magnitude of the pattern P relative to the
+text T is len(P) - K[i] for a mismatch occurring at i.
+"""
+def full_shift_table(S):
+    K = [0 for c in S]
+    Z = fundamental_preprocess(S)
     longest = 0
-    for i in range(len(z)-1, -1, -1):
-        longest = max(z[i], longest) if z[i] + i == len(z) else longest
-        l[i] = longest
-    return longest
-
-def build_character_table(s):
-    r = [[] for c in ALPHABET]
-    for i, c in enumerate(s):
-        r[alphabet_index(c)].append(i)
-    return r
+    for i, zv in enumerate(reversed(Z)):
+        longest = max(zv, longest) if zv == i+1 else longest
+        K[-i-1] = longest
+    K[0] = K[1]
+    return K
 
 """
 Implementation of the Boyer-Moore string search algorithm. This finds all occurrences of P
