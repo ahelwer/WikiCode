@@ -76,12 +76,12 @@ def string_search(P, T):
             matches.append(k - len(P) + 1)
             k += len(P) - F[1]  # Shift using full shift table
         else:   # No match, shift by max of bad character and good suffix rules
-            next_char = R[alphabet_index(T[h])][i]
-            char_shift = i-next_char if next_char != -1 else i+1
-            if i+1 != len(P):
-                suffix_shift = len(P)-L[i+1] if L[i+1] != 0 else len(P)-F[i+1]
-            else:
+            char_shift = i - R[alphabet_index(T[h])][i]
+            if i+1 == len(P):   # Mismatch happened on first attempt
                 suffix_shift = 1
+            elif L[i+1] == 0:   # Matched suffix does not appear anywhere in P
+                suffix_shift = len(P) - F[i+1]
+            else:               # Matched suffix appears in P
+                suffix_shift = len(P) - L[i+1]
             k += max(char_shift, suffix_shift)
     return matches
-
