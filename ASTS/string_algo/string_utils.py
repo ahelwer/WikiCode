@@ -9,7 +9,7 @@ Returns the length of the match of the substrings of S beginning at idx1 and idx
 """
 def match_length(S, idx1, idx2):
     if idx1 == idx2:
-        return len(S)
+        return len(S) - idx1
     match_count = 0
     while idx1 < len(S) and idx2 < len(S) and S[idx1] == S[idx2]:
         match_count += 1
