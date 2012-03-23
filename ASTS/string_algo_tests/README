@@ -1,0 +1,5 @@
+Tests for the string_algo module.
+
+simple_matching_functional_tests.py
+    Functional tests of all of the basic string_search functions in the module.
+

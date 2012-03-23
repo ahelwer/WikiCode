@@ -1,4 +1,5 @@
-from string_algo.string_utils import fundamental_preprocess, alphabet_index
+from string_algo.z_algorithm import fundamental_preprocess
+from string_algo.string_utils import alphabet_index
 
 """
 Generates R for S, which is an array indexed by the position of some character c in the 
@@ -23,7 +24,7 @@ L[i] = k, the largest position in S such that S[i:] (the suffix of S starting at
 a suffix of S[:k] (a substring in S ending at k). Used in Boyer-Moore, L gives an amount to
 shift P relative to T such that no instances of P in T are skipped and a suffix of P[:L[i]]
 matches the substring of T matched by a suffix of P in the previous match attempt.
-Specifically, if the mismatch took place at position i in P, the shift magnitude is given
+Specifically, if the mismatch took place at position i-1 in P, the shift magnitude is given
 by the equation len(P) - L[i]. In the case that L[i] = 0, the full shift table is used.
 """
 def good_suffix_table(S):
@@ -40,7 +41,7 @@ def good_suffix_table(S):
 Generates F for S, an array used in a special case of the good suffix rule in the Boyer-Moore
 string search algorithm. F[i] is the length of the longest suffix of S[i:] that is also a
 prefix of S. In the cases it is used, the shift magnitude of the pattern P relative to the
-text T is len(P) - F[i] for a mismatch occurring at i.
+text T is len(P) - F[i] for a mismatch occurring at i-1.
 """
 def full_shift_table(S):
     F = [0 for c in S]
@@ -58,6 +59,9 @@ amount to shift the string and skip comparisons. In practice it runs in O(m) (an
 sublinear) time, where m is the length of T.
 """
 def string_search(P, T):
+    if len(P) == 0 or len(T) == 0 or len(T) < len(P):
+        return []
+
     matches = []
 
     # Preprocessing
@@ -69,12 +73,12 @@ def string_search(P, T):
     while k < len(T):
         i = len(P) - 1  # Character to compare in P
         h = k           # Character to compare in T
-        while i > 0 and P[i] == T[h]:   # Matches starting from end of P
+        while i >= 0 and P[i] == T[h]:   # Matches starting from end of P
             i -= 1
             h -= 1
-        if i == 0: # Match has been found
+        if i == -1: # Match has been found
             matches.append(k - len(P) + 1)
-            k += len(P) - F[1]  # Shift using full shift table
+            k += len(P)-F[1] if len(P) > 1 else 1
         else:   # No match, shift by max of bad character and good suffix rules
             char_shift = i - R[alphabet_index(T[h])][i]
             if i+1 == len(P):   # Mismatch happened on first attempt
@@ -85,3 +89,4 @@ def string_search(P, T):
                 suffix_shift = len(P) - L[i+1]
             k += max(char_shift, suffix_shift)
     return matches
+

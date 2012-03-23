@@ -1,4 +1,4 @@
-from string_algo.string_utils import fundamental_preprocess
+from string_algo.z_algorithm import fundamental_preprocess
 
 """
 Returns sp, where the ith element of sp is the length of the longest substring ending
@@ -21,6 +21,8 @@ the indices at which a mismatch occurs) will be checked twice, leading to at mos
 comparisons in the worst case.
 """
 def string_search(P, T):
+    if len(P) == 0 or len(T) == 0 or len(T) < len(P):
+        return []
     matches = []
     sp = build_sp(P)
     c = 0 # Character to inspect in T
@@ -37,3 +39,4 @@ def string_search(P, T):
         else:  
             p = sp[p-1] # Sets p so prefix is not redundantly checked
     return matches
+

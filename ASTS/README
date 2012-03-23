@@ -3,6 +3,8 @@ Algorithms on Strings, Trees, and Sequences
     Dan Gusfield
 
 Implementation of string algorithms are in the string_algo Python module.
+Tests for string algorithms are in string_algo_tests Python module.
+    To run: python -m unittest string_algo_tests
 Python and TeX files in this directory are chapter exercises.
 
 Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms

@@ -4,7 +4,7 @@
 # Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms
 # Andrew Helwer, March 2012
 
-from string_algo.string_utils import fundamental_preprocess
+from string_algo.z_algorithm import fundamental_preprocess
 
 # Returns indices of exact matches of p in t
 def ExactMatchSearch(p, t):
@@ -62,22 +62,6 @@ def MaximalTandemSubarrays(p, t):
         matches = notInTandem
     return tandems
 
-"""
-# Preprocessing test
-s = 'aabxaacxaabxa'
-print 'Pre-processing \"%s\":' %s
-print fundamental_preprocess(s)
-s = 'aaaaaaaaaaaaaa'
-print 'Pre-processing \"%s\":' %s
-print fundamental_preprocess(s)
-
-# Matching test
-p = 'abxyabxz' 
-t = 'xabxyabxyabxzabxyabxz'
-print 'Searching for instances of \"%s\" in \"%s\":' %(p, t)
-print ExactMatchSearch(p, t)
-"""
-
 print '---------------------------------------------------------------------------------'
 
 # Exercise 1-1 - determine if p is a cyclic rotation of t
@@ -131,3 +115,4 @@ tandems = MaximalTandemSubarrays(p, t)
 print 'Maximal tandem subarrays in \"%s\" with base \"%s\": %s' %(t, p, tandems)
 
 print '---------------------------------------------------------------------------------'
+

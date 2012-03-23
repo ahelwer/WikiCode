@@ -4,8 +4,13 @@ Exercises and implementation of concepts from textbooks.
 
 Directory-textbook mapping:
 
-ASTS 
-
-Algorithms on Strings, Trees, and Sequences 
+ASTS - Algorithms on Strings, Trees, and Sequences 
     Computer Science and Computational Biology
     Dan Gusfield
+
+CLRS - Introduction to Algorithms
+    Third Edition
+    Thomas H. Cormen
+    Charles E. Leiserson
+    Ronald L. Rivest
+    Clifford Stein
