@@ -10,6 +10,8 @@ for the bad character rule in the Boyer-Moore string search algorithm, although 
 a much larger size than non-constant-time solutions.
 """
 def bad_character_table(S):
+    if len(S) == 0:
+        return [[] for a in range(26)]
     R = [[-1] for a in range(26)]
     alpha = [-1 for a in range(26)]
     for i, c in enumerate(S):
@@ -25,10 +27,11 @@ a suffix of S[:k] (a substring in S ending at k). Used in Boyer-Moore, L gives a
 shift P relative to T such that no instances of P in T are skipped and a suffix of P[:L[i]]
 matches the substring of T matched by a suffix of P in the previous match attempt.
 Specifically, if the mismatch took place at position i-1 in P, the shift magnitude is given
-by the equation len(P) - L[i]. In the case that L[i] = 0, the full shift table is used.
+by the equation len(P) - L[i]. In the case that L[i] = -1, the full shift table is used.
+Since only proper suffixes matter, L[0] = -1.
 """
 def good_suffix_table(S):
-    L = [0 for c in S]
+    L = [-1 for c in S]
     N = fundamental_preprocess(S[::-1]) # S[::-1] reverses S
     N.reverse()
     for j in range(0, len(S)-1):
@@ -83,7 +86,7 @@ def string_search(P, T):
             char_shift = i - R[alphabet_index(T[h])][i]
             if i+1 == len(P):   # Mismatch happened on first attempt
                 suffix_shift = 1
-            elif L[i+1] == 0:   # Matched suffix does not appear anywhere in P
+            elif L[i+1] == -1:   # Matched suffix does not appear anywhere in P
                 suffix_shift = len(P) - F[i+1]
             else:               # Matched suffix appears in P
                 suffix_shift = len(P) - L[i+1]
