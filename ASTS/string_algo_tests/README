@@ -2,4 +2,10 @@ Tests for the string_algo module.
 
 simple_matching_functional_tests.py
     Functional tests of all of the basic string_search functions in the module.
+boyer_moore_unit_tests.py
+    Unit tests of the preprocessing functions used in Boyer-Moore.
+knuth_morris_pratt_tests.py
+    Unit tests of the preprocessing functions used in KMP.
+string_utils_unit_tests.py
+    Unit tests of the utility functions in string_utils.
 

@@ -20,3 +20,6 @@ suite.append(unittest.TestLoader().loadTestsFromTestCase(GoodSuffixTableTests))
 from string_algo_tests.boyer_moore_unit_tests import FullShiftTableTests
 suite.append(unittest.TestLoader().loadTestsFromTestCase(FullShiftTableTests))
 
+from string_algo_tests.knuth_morris_pratt_tests import SpTests
+suite.append(unittest.TestLoader().loadTestsFromTestCase(SpTests))
+
