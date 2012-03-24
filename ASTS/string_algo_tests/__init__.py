@@ -23,3 +23,6 @@ suite.append(unittest.TestLoader().loadTestsFromTestCase(FullShiftTableTests))
 from string_algo_tests.knuth_morris_pratt_tests import SpTests
 suite.append(unittest.TestLoader().loadTestsFromTestCase(SpTests))
 
+from string_algo_tests.z_algorithm_unit_tests import FundamentalPreprocessTests
+suite.append(unittest.TestLoader().loadTestsFromTestCase(FundamentalPreprocessTests))
+

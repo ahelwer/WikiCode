@@ -8,4 +8,6 @@ knuth_morris_pratt_tests.py
     Unit tests of the preprocessing functions used in KMP.
 string_utils_unit_tests.py
     Unit tests of the utility functions in string_utils.
+z_algorithm_unit_tests.py
+    Unit tests of the fundamental preprocess of a string.
 
