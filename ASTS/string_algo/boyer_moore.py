@@ -73,13 +73,14 @@ def string_search(P, T):
     F = full_shift_table(P)
 
     k = len(P) - 1      # Represents alignment of end of P relative to T
+    previous_k = -1     # Represents alignment in previous phase (Galil's rule)
     while k < len(T):
         i = len(P) - 1  # Character to compare in P
         h = k           # Character to compare in T
-        while i >= 0 and P[i] == T[h]:   # Matches starting from end of P
+        while i >= 0 and h > previous_k and P[i] == T[h]:   # Matches starting from end of P
             i -= 1
             h -= 1
-        if i == -1: # Match has been found
+        if i == -1 or h == previous_k:  # Match has been found (Galil's rule)
             matches.append(k - len(P) + 1)
             k += len(P)-F[1] if len(P) > 1 else 1
         else:   # No match, shift by max of bad character and good suffix rules
@@ -90,6 +91,8 @@ def string_search(P, T):
                 suffix_shift = len(P) - F[i+1]
             else:               # Matched suffix appears in P
                 suffix_shift = len(P) - L[i+1]
-            k += max(char_shift, suffix_shift)
+            shift = max(char_shift, suffix_shift)
+            previous_k = k if shift >= i+1 else previous_k  # Galil's rule
+            k += shift
     return matches
 
