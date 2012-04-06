@@ -12,3 +12,6 @@ Chapter 1 - Exact Matching: Fundamental Preprocessing and First Algorithms
 
 Chapter 2 - Exact Matching: Classical Comparison-Based Methods
     Basic Boyer-Moore and Knuth-Morris-Pratt string search algorithms.
+
+Chapter 3 - Exact Matching: A Deeper Look at Classical Methods
+    Apostolico-Giancarlo variant of Boyer-Moore.

@@ -10,4 +10,6 @@ boyer_moore.py
     Implementation of basic Boyer-Moore string search and preprocessing methods.
 knuth_morris_pratt.py
     Implementation of basic KMP string search and preprocessing methods.
+apostolico_giancarlo.py
+    Implementation of Apostolico-Giancarlo variant of Boyer-Moore.
 
