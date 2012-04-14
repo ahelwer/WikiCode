@@ -5,6 +5,7 @@ from string_algo.z_algorithm import string_search as zmatch
 from string_algo.boyer_moore import string_search as bm
 from string_algo.knuth_morris_pratt import string_search as kmp
 from string_algo.apostolico_giancarlo import string_search as ag
+from string_algo.aho_corasick import pattern_search as ac
 
 class GeneralSimpleMatching(unittest.TestCase):
 
@@ -16,6 +17,7 @@ class GeneralSimpleMatching(unittest.TestCase):
         self.assertEqual(expected, bm(P, T), msg=info+'Boyer-Moore')
         self.assertEqual(expected, kmp(P, T), msg=info+'Knuth-Morris-Pratt')
         self.assertEqual(expected, ag(P, T), msg=info+'Apostolico-Giancarlo')
+        self.assertEqual([expected], ac([P], T), msg=info+'Aho-Corasick')
 
     def test_finds_match(self):
         P = 'foo'

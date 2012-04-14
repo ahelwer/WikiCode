@@ -14,4 +14,7 @@ Chapter 2 - Exact Matching: Classical Comparison-Based Methods
     Basic Boyer-Moore and Knuth-Morris-Pratt string search algorithms.
 
 Chapter 3 - Exact Matching: A Deeper Look at Classical Methods
-    Apostolico-Giancarlo variant of Boyer-Moore.
+    Apostolico-Giancarlo variant of Boyer-Moore, Galil's rule to ensure
+    linear runtime of Boyer-Moore, and the Aho-Corasick algorithm for
+    finding all occurrences of a set of patterns in a text.
+

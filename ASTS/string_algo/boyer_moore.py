@@ -62,10 +62,10 @@ amount to shift the string and skip comparisons. In practice it runs in O(m) (an
 sublinear) time, where m is the length of T.
 """
 def string_search(P, T):
-    if len(P) == 0 or len(T) == 0 or len(T) < len(P):
-        return []
-
     matches = []
+
+    if len(P) == 0 or len(T) < len(P):
+        return matches
 
     # Preprocessing
     R = bad_character_table(P)

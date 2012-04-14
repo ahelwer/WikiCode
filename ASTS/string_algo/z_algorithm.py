@@ -47,7 +47,7 @@ of P are easily found. The Z-values corresponding to T in P$T are considered, an
 value is equivalent to the length of P then a match is found at that index.
 """
 def string_search(P, T):
-    if len(P) == 0 or len(T) == 0 or len(T) < len(P):
+    if len(P) == 0 or len(T) < len(P):
         return []
     matches = []
     S = P + '$' + T
