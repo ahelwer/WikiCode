@@ -26,3 +26,6 @@ suite.append(unittest.TestLoader().loadTestsFromTestCase(SpTests))
 from string_algo_tests.z_algorithm_unit_tests import FundamentalPreprocessTests
 suite.append(unittest.TestLoader().loadTestsFromTestCase(FundamentalPreprocessTests))
 
+from string_algo_tests.aho_corasick_unit_tests import ConstructPatternTrieTests
+suite.append(unittest.TestLoader().loadTestsFromTestCase(ConstructPatternTrieTests))
+
