@@ -29,7 +29,7 @@ def construct_pattern_trie(pattern_list):
             if c not in current.edges:
                 current.edges[c] = Node()
             current = current.edges[c]
-        if len(P) != 0:
+        if len(P) != 0:     # Skips adding the empty string
             current.patterns.append(i)
     return root
 
@@ -45,17 +45,20 @@ a pattern exists, U's output link is None.
 """
 def link_pattern_trie(root):
     Q = []
+    # Base case - root and children of root all link to root
     root.failure_link = root
     for current in root.edges.values():
         current.failure_link = root
         Q.append(current)
-    while Q != []:
+    while Q != []:      # Performs a breadth-first search of the trie
         parent = Q.pop(0)
         for c, current in parent.edges.iteritems():
+            # Finds failure_link
             failure_node = parent.failure_link
             while c not in failure_node.edges and failure_node != root:
                 failure_node = failure_node.failure_link
             current.failure_link = failure_node.edges[c] if c in failure_node.edges else root
+            # Finds output_link
             if current.failure_link.patterns != []:
                 current.output_link = current.failure_link
             else:
@@ -74,26 +77,28 @@ patterns ending in different branches of the trie are not missed when matching.
 """
 def pattern_search(pattern_list, T):
     matches = [[] for P in pattern_list]
-
     if len(T) == 0:
         return matches
 
+    # Preprocessing
     root = link_pattern_trie(construct_pattern_trie(pattern_list))
-    idx = 0
-    current = root
+    idx = 0         # Index in T to be compared
+    current = root  # Node in trie to be considered
     while idx < len(T):
-        if T[idx] in current.edges:
+        if T[idx] in current.edges:     # Comparison succeeded
             nxt = current.edges[T[idx]]
             output_node = nxt
+            # Searches for matches using output_links
             while output_node != None:
                 for i in output_node.patterns:
                     matches[i].append(idx - len(pattern_list[i]) + 1)
                 output_node = output_node.output_link
+            # Moves to next comparison
             current = nxt
             idx += 1
-        elif current == root:
+        elif current == root:       # Comparison failed on first character
             idx += 1
-        else:
+        else:                       # Comparison failed - follow failure_link
             current = current.failure_link
     return matches
 

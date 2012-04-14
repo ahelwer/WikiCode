@@ -1,0 +1,17 @@
+Implementations in Python of various string algorithms.
+
+aho_corasick.py
+    Implementation of the Aho-Corasick multi-pattern string search.
+apostolico_giancarlo.py
+    Implementation of Apostolico-Giancarlo variant of Boyer-Moore.
+boyer_moore.py
+    Implementation of basic Boyer-Moore string search and preprocessing methods.
+knuth_morris_pratt.py
+    Implementation of basic KMP string search and preprocessing methods.
+naive_algorithm.py
+    Implementation of the naive string search algorithm.
+string_utils.py
+    Various commonly-useful string-related methods.
+z_algorithm.py
+    Implementation of the fundamental preprocessing of a string.
+

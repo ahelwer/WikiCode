@@ -21,9 +21,9 @@ the indices at which a mismatch occurs) will be checked twice, leading to at mos
 comparisons in the worst case.
 """
 def string_search(P, T):
-    if len(P) == 0 or len(T) < len(P):
-        return []
     matches = []
+    if len(P) == 0 or len(T) < len(P):
+        return matches
     sp = build_sp(P)
     c = 0 # Character to inspect in T
     p = 0 # Character to start matching at in P

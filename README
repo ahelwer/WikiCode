@@ -1,16 +1,13 @@
 IvoryTower
 
-Exercises and implementation of concepts from textbooks.
+Implementation of concepts and algorithms from textbooks and papers.
 
-Directory-textbook mapping:
+To run unit and functional tests, execute the run_tests.py script.
 
-ASTS - Algorithms on Strings, Trees, and Sequences 
-    Computer Science and Computational Biology
-    Dan Gusfield
+string_algo:
+    Fundamental Preprocess (Z-algorithm)
+    Boyer-Moore
+    Apostolico-Giancarlo
+    Knuth-Morris-Pratt
+    Aho-Corasick
 
-CLRS - Introduction to Algorithms
-    Third Edition
-    Thomas H. Cormen
-    Charles E. Leiserson
-    Ronald L. Rivest
-    Clifford Stein

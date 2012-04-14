@@ -63,7 +63,6 @@ sublinear) time, where m is the length of T.
 """
 def string_search(P, T):
     matches = []
-
     if len(P) == 0 or len(T) < len(P):
         return matches
 

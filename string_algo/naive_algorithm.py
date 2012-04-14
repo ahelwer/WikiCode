@@ -4,9 +4,9 @@ P with a certain index of T, checks if a match occurs, then shifts the alignment
 right by a single character.
 """
 def string_search(P, T):
-    if len(P) == 0 or len(T) < len(P):
-        return []
     matches = []
+    if len(P) == 0 or len(T) < len(P):
+        return matches
     k = 0 # Alignment of P relative to T
     while k+len(P) <= len(T):
         i = 0 # Index to be compared
