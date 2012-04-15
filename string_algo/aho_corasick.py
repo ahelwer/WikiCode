@@ -62,7 +62,7 @@ def link_pattern_trie(root):
             if current.failure_link.patterns != []:
                 current.output_link = current.failure_link
             else:
-                current.ouput_link = current.failure_link.output_link
+                current.output_link = current.failure_link.output_link
             Q.append(current)
     return root
 
