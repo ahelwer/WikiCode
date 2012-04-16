@@ -75,7 +75,7 @@ trie out of the patterns, then adding failure links to the trie as a generalizat
 the failure function found in Knuth-Morris-Pratt. Output links are also added so that
 patterns ending in different branches of the trie are not missed when matching.
 """
-def pattern_search(pattern_list, T):
+def string_set_search(pattern_list, T):
     matches = [[] for P in pattern_list]
     if len(T) == 0:
         return matches

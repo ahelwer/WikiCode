@@ -6,6 +6,10 @@ suite = []
 from string_algo_tests.simple_matching_functional_tests import GeneralSimpleMatching
 suite.append(unittest.TestLoader().loadTestsFromTestCase(GeneralSimpleMatching))
 
+# Functional tests for algorithms matching a set of P against a text T
+from string_algo_tests.set_matching_functional_tests import GeneralSetMatching
+suite.append(unittest.TestLoader().loadTestsFromTestCase(GeneralSetMatching))
+
 # Unit tests for string_algo.string_utils.match_length
 from string_algo_tests.string_utils_unit_tests import MatchLengthTests
 suite.append(unittest.TestLoader().loadTestsFromTestCase(MatchLengthTests))

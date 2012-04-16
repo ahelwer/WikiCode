@@ -5,7 +5,7 @@ from string_algo.z_algorithm import string_search as zmatch
 from string_algo.boyer_moore import string_search as bm
 from string_algo.knuth_morris_pratt import string_search as kmp
 from string_algo.apostolico_giancarlo import string_search as ag
-from string_algo.aho_corasick import pattern_search as ac
+from string_algo.aho_corasick import string_set_search as ac
 
 class GeneralSimpleMatching(unittest.TestCase):
 
@@ -53,6 +53,12 @@ class GeneralSimpleMatching(unittest.TestCase):
         P = 'foo'
         T = 'foobarfoo'
         expected = [0,6]
+        self.check_all(P, T, expected)
+
+    def test_total_match(self):
+        P = 'foobar'
+        T = 'foobar'
+        expected = [0]
         self.check_all(P, T, expected)
 
     def test_shorter_text(self):
