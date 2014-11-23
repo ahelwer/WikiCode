@@ -1,6 +1,8 @@
-IvoryTower
+WikiCode
 
-Implementation of concepts and algorithms from textbooks and papers.
+Implementation of concepts and algorithms from textbooks and papers, for the purpose of providing code examples to Wikipedia.
+
+All code in this repository is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License, which is the same license used for the actual text on Wikipedia.
 
 To run unit and functional tests, execute the run_tests.py script.
 
