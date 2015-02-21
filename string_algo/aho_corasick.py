@@ -52,7 +52,7 @@ def link_pattern_trie(root):
         Q.append(current)
     while Q != []:      # Performs a breadth-first search of the trie
         parent = Q.pop(0)
-        for c, current in parent.edges.iteritems():
+        for c, current in parent.edges.items():
             # Finds failure_link
             failure_node = parent.failure_link
             while c not in failure_node.edges and failure_node != root:

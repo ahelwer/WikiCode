@@ -8,7 +8,7 @@ class ConstructPatternTrieTests(unittest.TestCase):
         patterns = []
         for i in current.patterns:
             patterns.append(''.join(word))
-        for c, child in current.edges.iteritems():
+        for c, child in current.edges.items():
             word.append(c)
             patterns.extend(self.deconstruct_pattern_trie(child, word))
             word.pop()
@@ -72,9 +72,8 @@ class ConstructPatternTrieTests(unittest.TestCase):
 
     def test_distinct_patterns(self):
         pattern_list = ['aaba', 'foo', 'bar']
-        pattern_list.sort()
         root = construct_pattern_trie(pattern_list)
-        self.assertEqual(pattern_list, self.deconstruct_pattern_trie(root))
+        self.assertEqual(sorted(pattern_list), sorted(self.deconstruct_pattern_trie(root)))
 
     def test_eclipsing_patterns(self):
         pattern_list = ['ab', 'a']
@@ -101,9 +100,8 @@ class ConstructPatternTrieTests(unittest.TestCase):
 
     def test_intersecting_patterns(self):
         pattern_list = ['aaba', 'aabaaa', 'abba', 'aba', 'baa', 'bab']
-        pattern_list.sort()
         root = construct_pattern_trie(pattern_list)
-        self.assertEqual(pattern_list, self.deconstruct_pattern_trie(root))
+        self.assertEqual(sorted(pattern_list), sorted(self.deconstruct_pattern_trie(root)))
 
 class LinkPatternTrieTests(unittest.TestCase):
 
