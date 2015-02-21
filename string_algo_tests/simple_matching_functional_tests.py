@@ -106,4 +106,10 @@ class GeneralSimpleMatching(unittest.TestCase):
         T = 'bb'
         expected = []
         self.check_all(P, T, expected)
-
+        
+    # Talk:Boyer–Moore_string_search_algorithm#Bug_in_python_code
+    def test_SeriousPlaygrounder_boyer_moore_bug(self):
+        P = 'abcabba'
+        T = 'abaabcabbababbcababa'
+        expected = [3]
+        self.check_all(P, T, expected)
