@@ -78,7 +78,7 @@ def string_search(P, T):
             elif L[i+1] == -1:   # Matched suffix does not appear anywhere in P
                 suffix_shift = len(P) - F[i+1]
             else:               # Matched suffix appears in P
-                suffix_shift = len(P) - L[i+1]
+                suffix_shift = len(P) - 1 - L[i+1]
             M[k] = k - h
             k += max(char_shift, suffix_shift)
             i = len(P) - 1
